@@ -60,7 +60,7 @@ class QuoteController extends Controller
 
     public function deleteQuote($id)
     {
-        $quote = Quote::find($id)->first();
+        $quote = Quote::find($id);
         if($quote) {
             if($quote->delete()) {
                 return response()->json([
@@ -70,8 +70,8 @@ class QuoteController extends Controller
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Quote Not Deleted!'
-                ], 200);
+                    'message' => 'Something Went Wrong!'
+                ], 500);
             }
         } else {
             return response()->json([
