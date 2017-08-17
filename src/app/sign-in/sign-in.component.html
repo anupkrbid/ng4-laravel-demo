@@ -1,0 +1,15 @@
+<form #form="ngForm" (ngSubmit)="onSignIn(form)">
+  <div class="form-group">
+    <label for="email">Email Address:</label>
+    <input type="email" class="form-control" id="email" name="email" ngModel>
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" name="password" ngModel>
+  </div>
+  <!--<div class="checkbox">-->
+    <!--<label><input type="checkbox"> Remember me</label>-->
+  <!--</div>-->
+  <button type="submit" class="btn btn-primary">SIGN IN</button>
+  <button type="text" class="btn btn-default" (click)="onReset(form)">RESET</button>
+</form>
