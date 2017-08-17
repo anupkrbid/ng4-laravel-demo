@@ -1,0 +1,19 @@
+<button class="btn btn-primary">Fetch Data</button>
+<hr/>
+<div class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Panel Header</div>
+    <div class="panel-body">
+      <div class="form-inline" *ngIf="editMode">
+        <label for="content">New Content:</label>
+        <input id="content" type="text">
+        <button class="btn btn-primary btn-sm" (click)="onSave()">Save</button>
+        <button class="btn btn-default btn-sm" (click)="onCancel()">Cancel</button>
+      </div>
+      <div *ngIf="!editMode">
+        <button class="btn btn-primary btn-sm" (click)="onEdit()">Edit</button>
+        <button class="btn btn-danger btn-sm" (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
