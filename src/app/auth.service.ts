@@ -28,4 +28,12 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  isAuthenticated() {
+    if (this.getToken() !== null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

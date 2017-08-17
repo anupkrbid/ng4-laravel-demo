@@ -20,7 +20,7 @@ export class AppComponent {
         localStorage.removeItem('token');
       },
       (error: Response) => console.log(error),
-      () => {}
+      () => {alert('hello');}
     );
   }
 }
