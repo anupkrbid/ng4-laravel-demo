@@ -1,10 +1,13 @@
-import { Injectable } from "@angular/core";
-import {Http, Response} from "@angular/http";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/Rx'
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/Rx';
 
 @Injectable()
 export class QuoteService {
+
+  quotesNeedToUpdate = new Subject();
 
   constructor( private http: Http) { }
 

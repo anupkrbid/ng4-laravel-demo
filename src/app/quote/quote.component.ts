@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { QuoteModel } from "../quote.model";
-import { QuoteService } from "../quote.service";
+import { QuoteModel } from '../quote.model';
+import { QuoteService } from '../quote.service';
 
 @Component({
   selector: 'app-quote',
@@ -11,7 +11,7 @@ import { QuoteService } from "../quote.service";
 export class QuoteComponent implements OnInit {
 
   editMode = false;
-  editedValue: string= '';
+  editedValue= '';
 
   @Input() quote: QuoteModel;
 
@@ -41,6 +41,7 @@ export class QuoteComponent implements OnInit {
         () => {
           this.editMode = false;
           this.editedValue = '';
+          this.quoteService.quotesNeedToUpdate.next();
         }
       );
   }
@@ -52,7 +53,9 @@ export class QuoteComponent implements OnInit {
           alert(response.message);
         },
         (error: Response ) => console.log(error),
-        () => { }
+        () => {
+           this.quoteService.quotesNeedToUpdate.next();
+        }
       );
   }
 
