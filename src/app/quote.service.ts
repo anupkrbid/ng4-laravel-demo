@@ -16,4 +16,13 @@ export class QuoteService {
         }
       );
   }
+
+  addQuote(data: {content: string}): Observable<any> {
+    return this.http.post('http://127.0.0.1:8000/api/add-quote', data)
+      .map(
+        (response: Response) => {
+          return response.json();
+        }
+      );
+  }
 }

@@ -2,10 +2,12 @@
   <div class="panel panel-primary">
     <div class="panel-heading">New Quote</div>
     <div class="panel-body">
-      <label for="content">New Content:</label>
-      <input id="content" type="text">
-      <button class="btn btn-primary btn-sm" (click)="onSave()">Save</button>
-      <button class="btn btn-default btn-sm" (click)="onCancel()">Cancel</button>
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <label for="content">New Content:</label>
+        <input id="content" type="text" name="content" ngModel>
+        <button class="btn btn-primary btn-sm" type="submit">Save</button>
+        <button class="btn btn-default btn-sm" type="button" (click)="onCancel(form)">Cancel</button>
+      </form>
     </div>
   </div>
 </div>

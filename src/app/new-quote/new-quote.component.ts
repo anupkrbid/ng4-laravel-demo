@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from "@angular/forms";
+import { Response } from "@angular/http";
+
+import { QuoteService } from "../quote.service";
 
 @Component({
   selector: 'app-new-quote',
@@ -7,16 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewQuoteComponent implements OnInit {
 
-  constructor() { }
+  constructor( private quoteService: QuoteService) { }
 
   ngOnInit() { }
 
-  onSave() {
-    console.log('New Component Save Button Clicked');
+  onCancel(form: NgForm) {
+    form.reset();
   }
 
-  onCancel() {
-    console.log('New Component Cancel Button Clicked');
+  onSubmit(form: NgForm) {
+    console.log(form);
+    const obj = {
+      content: form.value.content
+    };
+    this.quoteService.addQuote(obj)
+      .subscribe(
+        (response: {success: boolean, message: string}) => {
+          alert(response.message);
+        },
+        (error: Response ) => console.log(error),
+        () => form.reset()
+      );
+    // form.reset();
   }
 
 }
