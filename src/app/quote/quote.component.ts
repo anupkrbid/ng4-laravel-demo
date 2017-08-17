@@ -25,6 +25,7 @@ export class QuoteComponent implements OnInit {
 
   onCancel() {
     this.editMode = false;
+    this.editedValue = '';
   }
 
   onSave() {
@@ -45,7 +46,14 @@ export class QuoteComponent implements OnInit {
   }
 
   onDelete() {
-    console.log('Delete Button Pressed!');
+    this.quoteService.deleteQuote(this.quote.id)
+      .subscribe(
+        (response: {success: boolean, message: string}) => {
+          alert(response.message);
+        },
+        (error: Response ) => console.log(error),
+        () => { }
+      );
   }
 
 }

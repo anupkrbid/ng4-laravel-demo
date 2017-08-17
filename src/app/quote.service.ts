@@ -34,4 +34,13 @@ export class QuoteService {
         }
       );
   }
+
+  deleteQuote(id: number): Observable<any> {
+    return this.http.delete('http://127.0.0.1:8000/api/delete-quote/' + id)
+      .map(
+        (response: Response) => {
+          return response.json();
+        }
+      );
+  }
 }
