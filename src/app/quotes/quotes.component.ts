@@ -20,9 +20,9 @@ export class QuotesComponent implements OnInit {
   onFetchQuotes() {
     this.quoteService.getQuotes()
       .subscribe(
-        (response: QuoteModel[]) => {
-          console.log(response);
-          this.quotes = response;
+        (response: {success: boolean, data: QuoteModel[]}) => {
+          console.log('Data Fetched!');
+          this.quotes = response.data;
           },
         (error: Response) => console.log(error),
       );
