@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { QuoteModel } from '../quote.model';
 import { QuoteService } from '../quote.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-quote',
@@ -15,7 +16,7 @@ export class QuoteComponent implements OnInit {
 
   @Input() quote: QuoteModel;
 
-  constructor( private quoteService: QuoteService) { }
+  constructor( private quoteService: QuoteService, private authService: AuthService ) { }
 
   ngOnInit() { }
 
@@ -32,7 +33,8 @@ export class QuoteComponent implements OnInit {
     const obj = {
       content: this.editedValue
     };
-    this.quoteService.editQuote(this.quote.id, obj)
+    const token = this.authService.getToken();
+    this.quoteService.editQuote(this.quote.id, obj, token)
       .subscribe(
         (response: {success: boolean, message: string}) => {
           alert(response.message);
@@ -47,7 +49,8 @@ export class QuoteComponent implements OnInit {
   }
 
   onDelete() {
-    this.quoteService.deleteQuote(this.quote.id)
+    const token = this.authService.getToken();
+    this.quoteService.deleteQuote(this.quote.id, token)
       .subscribe(
         (response: {success: boolean, message: string}) => {
           alert(response.message);

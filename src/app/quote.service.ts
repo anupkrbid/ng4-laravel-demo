@@ -21,8 +21,8 @@ export class QuoteService {
       );
   }
 
-  addQuote(data: {content: string}): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/api/add-quote', data)
+  addQuote(data: {content: string}, token: string): Observable<any> {
+    return this.http.post('http://127.0.0.1:8000/api/add-quote?token=' + token, data)
       .map(
         (response: Response) => {
           return response.json();
@@ -30,8 +30,8 @@ export class QuoteService {
       );
   }
 
-  editQuote(id: number, data: {content: string}): Observable<any> {
-    return this.http.put('http://127.0.0.1:8000/api/edit-quote/' + id, data)
+  editQuote(id: number, data: {content: string}, token: string): Observable<any> {
+    return this.http.put('http://127.0.0.1:8000/api/edit-quote/' + id + '?token=' + token, data)
       .map(
         (response: Response) => {
           return response.json();
@@ -39,8 +39,8 @@ export class QuoteService {
       );
   }
 
-  deleteQuote(id: number): Observable<any> {
-    return this.http.delete('http://127.0.0.1:8000/api/delete-quote/' + id)
+  deleteQuote(id: number, token: string): Observable<any> {
+    return this.http.delete('http://127.0.0.1:8000/api/delete-quote/' + id + '?token=' + token)
       .map(
         (response: Response) => {
           return response.json();

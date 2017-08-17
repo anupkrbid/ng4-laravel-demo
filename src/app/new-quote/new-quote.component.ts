@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from "@angular/forms";
-import { Response } from "@angular/http";
+import { NgForm } from '@angular/forms';
+import { Response } from '@angular/http';
 
-import { QuoteService } from "../quote.service";
+import { QuoteService } from '../quote.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-new-quote',
@@ -11,7 +12,7 @@ import { QuoteService } from "../quote.service";
 })
 export class NewQuoteComponent implements OnInit {
 
-  constructor( private quoteService: QuoteService) { }
+  constructor( private quoteService: QuoteService, private authService: AuthService ) { }
 
   ngOnInit() { }
 
@@ -23,7 +24,8 @@ export class NewQuoteComponent implements OnInit {
     const obj = {
       content: form.value.content
     };
-    this.quoteService.addQuote(obj)
+    const token = this.authService.getToken();
+    this.quoteService.addQuote(obj, token)
       .subscribe(
         (response: {success: boolean, message: string}) => {
           alert(response.message);

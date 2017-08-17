@@ -23,9 +23,9 @@ export class SignInComponent implements OnInit {
     this.authService.signin(body)
       .subscribe(
         (response: Response) => {
-          console.log(response.json());
+          localStorage.setItem('token', response.json().token);
           alert(response.json().message);
-        },
+          },
         (error: Response) => console.log(error),
         () => formSignIn.reset()
       );
