@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { QuoteModel } from "../quote.model";
+import { QuoteService } from "../quote.service";
 
 @Component({
   selector: 'app-quote',
@@ -9,9 +11,11 @@ import { QuoteModel } from "../quote.model";
 export class QuoteComponent implements OnInit {
 
   editMode = false;
+  editedValue: string= '';
+
   @Input() quote: QuoteModel;
 
-  constructor() { }
+  constructor( private quoteService: QuoteService) { }
 
   ngOnInit() { }
 
@@ -24,7 +28,20 @@ export class QuoteComponent implements OnInit {
   }
 
   onSave() {
-    this.editMode = false;
+    const obj = {
+      content: this.editedValue
+    };
+    this.quoteService.editQuote(this.quote.id, obj)
+      .subscribe(
+        (response: {success: boolean, message: string}) => {
+          alert(response.message);
+        },
+        (error: Response ) => console.log(error),
+        () => {
+          this.editMode = false;
+          this.editedValue = '';
+        }
+      );
   }
 
   onDelete() {

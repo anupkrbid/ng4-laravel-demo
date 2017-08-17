@@ -25,4 +25,13 @@ export class QuoteService {
         }
       );
   }
+
+  editQuote(id: number, data: {content: string}): Observable<any> {
+    return this.http.put('http://127.0.0.1:8000/api/edit-quote/' + id, data)
+      .map(
+        (response: Response) => {
+          return response.json();
+        }
+      );
+  }
 }

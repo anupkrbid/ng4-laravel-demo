@@ -20,7 +20,6 @@ export class NewQuoteComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form);
     const obj = {
       content: form.value.content
     };
@@ -32,7 +31,6 @@ export class NewQuoteComponent implements OnInit {
         (error: Response ) => console.log(error),
         () => form.reset()
       );
-    // form.reset();
   }
 
 }

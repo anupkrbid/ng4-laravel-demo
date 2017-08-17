@@ -4,7 +4,7 @@
     <div class="panel-body">
       <div class="form-inline" *ngIf="editMode">
         <label for="content">New Content:</label>
-        <input id="content" type="text">
+        <input id="content" type="text" [(ngModel)]="editedValue">
         <button class="btn btn-primary btn-sm" (click)="onSave()">Save</button>
         <button class="btn btn-default btn-sm" (click)="onCancel()">Cancel</button>
       </div>
