@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quote;
+use JWTAuth;
 
 class QuoteController extends Controller
 {
@@ -25,6 +26,7 @@ class QuoteController extends Controller
 
     public function addQuote(Request $request)
     {
+        // $user = JWTAuth::parseToken()->toUser();
         $quote = new Quote();
         $quote->content = $request->content;
         if($quote->save()) {
@@ -79,6 +81,6 @@ class QuoteController extends Controller
                     'message' => 'Quote Not Found!'
                 ], 404);
         }
-        
+
     }
 }

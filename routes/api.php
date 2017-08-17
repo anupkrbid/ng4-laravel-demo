@@ -13,22 +13,29 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('/get-quotes', [
     'uses' => 'QuoteController@getQuotes'
 ]);
 
 Route::post('/add-quote', [
-    'uses' => 'QuoteController@addQuote'
+    'uses' => 'QuoteController@addQuote',
+    'middleware' => 'jwt.auth'
 ]);
 
 Route::put('/edit-quote/{id}', [
-    'uses' => 'QuoteController@editQuote'
+    'uses' => 'QuoteController@editQuote',
+    'middleware' => 'jwt.auth'
 ]);
 
 Route::delete('/delete-quote/{id}', [
-    'uses' => 'QuoteController@deleteQuote'
+    'uses' => 'QuoteController@deleteQuote',
+    'middleware' => 'jwt.auth'
+]);
+
+Route::post('/sign-up', [
+    'uses' => 'UserController@signup'
+]);
+
+Route::post('/sign-in', [
+    'uses' => 'UserController@signin'
 ]);
