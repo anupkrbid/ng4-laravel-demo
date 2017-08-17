@@ -39,3 +39,7 @@ Route::post('/sign-up', [
 Route::post('/sign-in', [
     'uses' => 'UserController@signin'
 ]);
+
+Route::post('/sign-out', [
+    'uses' => 'UserController@signout'
+]);

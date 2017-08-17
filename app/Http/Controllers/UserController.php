@@ -63,4 +63,20 @@ class UserController extends Controller
         ], 500);
       }
     }
+
+    public function signout(Request $request)
+    {
+       try {
+           JWTAuth::invalidate($request->input('token'));
+           return response()->json([
+               'success' => true,
+               'message' => 'User Logged Out Successfully!'
+           ], 200);
+       } catch (Exception $e) {
+           return response()->json([
+               'success' => false,
+               'message' => $e->getMessage(),
+           ], 500);
+       }
+   }
 }
