@@ -42,7 +42,7 @@ class QuoteController extends Controller
 
     public function editQuote(Request $request, $id)
     {
-        $quote = Quote::find($id)->first();
+        $quote = Quote::find($id);
         if($quote) {
             $quote->content = $request->content;
             $quote->save();
