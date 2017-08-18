@@ -1,17 +1,7 @@
 <div id="app">
   <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <ul class="nav nav-pills">
-          <li *ngIf="isLoggedIn" routerLinkActive="active"><a routerLink="quotes">Quotes</a></li>
-          <li *ngIf="isLoggedIn" routerLinkActive="active"><a routerLink="new-quote">Add New Quote</a></li>
-          <li *ngIf="!isLoggedIn" routerLinkActive="active"><a routerLink="sign-in">Sign In</a></li>
-          <li *ngIf="!isLoggedIn" routerLinkActive="active"><a routerLink="sign-up">Sign Up</a></li>
-          <li *ngIf="isLoggedIn"><a (click)="onSignOut()">Sign Out</a></li>
-        </ul>
-      </div>
-    </div>
-    <hr/>
+    <app-header></app-header>
+    <br/>
     <div class="row">
       <div class="col-xs-12">
         <router-outlet></router-outlet>
