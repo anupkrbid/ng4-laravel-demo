@@ -13,6 +13,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
+import { NotAuthGuard} from './not-auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AuthGuard } from './auth.guard';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [ QuoteService, AuthService, AuthGuard ],
+  providers: [ QuoteService, AuthService, AuthGuard, NotAuthGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

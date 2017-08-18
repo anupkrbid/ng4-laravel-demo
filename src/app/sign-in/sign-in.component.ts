@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Response } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 
@@ -11,7 +12,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignInComponent implements OnInit {
 
-  constructor( private authService: AuthService ) { }
+  constructor( private authService: AuthService, private router: Router ) { }
 
   ngOnInit() { }
 
@@ -27,7 +28,11 @@ export class SignInComponent implements OnInit {
           alert(response.json().message);
           },
         (error: Response) => console.log(error),
-        () => formSignIn.reset()
+        () => {
+          this.authService.loggedIn.next();
+          formSignIn.reset();
+          this.router.navigate(['/quotes']);
+        }
       );
   }
 
