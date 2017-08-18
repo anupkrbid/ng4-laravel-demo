@@ -1,15 +1,39 @@
 <form #form="ngForm" (ngSubmit)="onSignIn(form)">
     <div class="form-group">
         <label for="email">Email Address:</label>
-        <input email class="form-control" id="email" name="email" ngModel required>
+        <input
+            id="email"
+            class="form-control"
+            name="email"
+            email
+            ngModel
+            required
+            #email="ngModel"
+        >
     </div>
+    <p class="text-danger" *ngIf="email.invalid && email.touched">
+        Please enter a proper email address.
+    </p>
     <div class="form-group">
         <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd" name="password" ngModel required>
+        <input
+            id="pwd"
+            type="password"
+            class="form-control"
+            name="password"
+            ngModel
+            required
+            #password="ngModel"
+        >
     </div>
+    <p class="text-danger" *ngIf="password.invalid && password.touched">
+        Your password is required.
+    </p>
     <!--<div class="checkbox">-->
     <!--<label><input type="checkbox"> Remember me</label>-->
     <!--</div>-->
     <button class="btn btn-primary" [disabled]="form.invalid">SIGN IN</button>
-    <button type="reset" class="btn btn-default" (click)="onReset(form)">RESET</button>
+    <button type="reset" class="btn btn-default" (click)="onReset(form)">
+        RESET
+    </button>
 </form>
