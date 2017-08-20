@@ -11,9 +11,9 @@
             #email="ngModel"
         >
     </div>
-    <p class="text-danger" *ngIf="email.invalid && email.touched">
-        Please enter a proper email address.
-    </p>
+	<div class="alert alert-danger" *ngIf="email.invalid && email.touched">
+        <strong>Danger!</strong> Please enter a proper email address.
+    </div>
     <div class="form-group">
         <label for="pwd">Password:</label>
         <input
@@ -26,9 +26,9 @@
             #password="ngModel"
         >
     </div>
-    <p class="text-danger" *ngIf="password.invalid && password.touched">
-        Your password is required.
-    </p>
+	<div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+		<strong>Danger!</strong> Your password is required.
+	</div>
     <!--<div class="checkbox">-->
     <!--<label><input type="checkbox"> Remember me</label>-->
     <!--</div>-->

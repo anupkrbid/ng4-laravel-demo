@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,30 +14,32 @@ import { NewQuoteComponent } from './new-quote/new-quote.component';
 import { QuoteService } from './quote.service';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-import { NotAuthGuard} from './not-auth.guard';
+import { NotAuthGuard } from './not-auth.guard';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    SignInComponent,
-    SignUpComponent,
-    QuotesComponent,
-    QuoteComponent,
-    NewQuoteComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    FormsModule,
-    AppRoutingModule
-  ],
-  providers: [
-    QuoteService,
-    AuthService,
-    AuthGuard,
-    NotAuthGuard
-  ],
-  bootstrap: [ AppComponent ]
-})
-export class AppModule { }
+@NgModule( {
+	declarations : [
+		AppComponent,
+		HeaderComponent,
+		SignInComponent,
+		SignUpComponent,
+		QuotesComponent,
+		QuoteComponent,
+		NewQuoteComponent
+	],
+	imports : [
+		BrowserModule,
+		HttpModule,
+		FormsModule,
+		ReactiveFormsModule,
+		AppRoutingModule
+	],
+	providers : [
+		QuoteService,
+		AuthService,
+		AuthGuard,
+		NotAuthGuard
+	],
+	bootstrap : [ AppComponent ]
+} )
+export class AppModule {
+}
