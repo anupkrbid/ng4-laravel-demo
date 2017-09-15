@@ -1,0 +1,73 @@
+<form  [formGroup]="formSignUp" (ngSubmit)="onSignUp()">
+	<div class="form-group">
+		<label for="name">Name:</label>
+		<input
+			id="name"
+			name="name"
+			class="form-control"
+			formControlName="name"
+		>
+	</div>
+	<div *ngIf="formSignUp.get('name').invalid && formSignUp.get('name').touched">
+		<div class="alert alert-danger" *ngIf="formSignUp.get('name').errors.required">
+			<strong>Danger!</strong> Your Name is Required!
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="email">Email Address:</label>
+		<input
+			id="email"
+			name="email"
+			class="form-control"
+			formControlName="email"
+		>
+	</div>
+	<div *ngIf="formSignUp.get('email').invalid && formSignUp.get('email').touched">
+		<div class="alert alert-danger" *ngIf="formSignUp.get('email').errors.required">
+			<strong>Danger!</strong> Your Email Address is Required!
+		</div>
+		<div class="alert alert-danger" *ngIf="formSignUp.get('email').errors.email">
+			<strong>Danger!</strong> Please Enter a Proper Email Address!
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="pwd">Password:</label>
+		<input
+			id="pwd"
+			name="password"
+			type="password"
+			class="form-control"
+			formControlName="password"
+		>
+	</div>
+	<div *ngIf="formSignUp.get('password').invalid && formSignUp.get('password').touched">
+		<div class="alert alert-danger" *ngIf="formSignUp.get('password').errors.required">
+			<strong>Danger!</strong> Your Password is Required!
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="cnf_pwd">Confirm Password:</label>
+		<input
+			id="cnf_pwd"
+			name="cnf_password"
+			type="password"
+			class="form-control"
+			formControlName="cnf_password"
+		>
+	</div>
+	<div *ngIf="formSignUp.get('cnf_password').invalid && formSignUp.get('cnf_password').touched">
+		<div class="alert alert-danger" *ngIf="formSignUp.get('cnf_password').errors.required">
+			<strong>Danger!</strong> Confirming Password is Required!
+		</div>
+	</div>
+	
+	<!--<div class="checkbox">-->
+	<!--<label><input type="checkbox"> Remember Me</label>-->
+	<!--</div>-->
+	
+	<button class="btn btn-primary" [disabled]="false">SIGN UP</button>
+	<button type="reset" class="btn btn-default" (click)="onReset()">RESET</button>
+</form>
