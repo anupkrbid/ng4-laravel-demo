@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -23,18 +23,22 @@ export class HeaderComponent implements OnInit {
   }
 
   onSignOut() {
+
     const token = this.authService.getToken();
-    this.authService.signout(token).subscribe(
-      (response: Response) => {
-        console.log(response.json().message);
+
+    this.authService.signout(token)
+	    .subscribe(
+      (res: any) => {
+        console.log(res.message);
         localStorage.removeItem('token');
       },
-      (error: Response) => console.log(error),
+      (err: HttpErrorResponse) => console.log(err),
       () => {
         this.authService.loggedIn.next();
         this.router.navigate(['/sign-in']);
       }
     );
+
   }
 
 }
