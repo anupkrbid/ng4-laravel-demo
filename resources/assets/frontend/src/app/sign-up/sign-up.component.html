@@ -9,7 +9,7 @@
 		>
 	</div>
 	<div *ngIf="formSignUp.get('name').invalid && formSignUp.get('name').touched">
-		<div class="alert alert-danger" *ngIf="formSignUp.get('name').errors.required">
+		<div class="alert alert-danger" *ngIf="formSignUp.get('name').hasError('required')">
 			<strong>Danger!</strong> Your Name is Required!
 		</div>
 	</div>
@@ -25,10 +25,10 @@
 	</div>
 	<div *ngIf="formSignUp.get('email').invalid && formSignUp.get('email').touched">
 		<div class="alert alert-danger" >
-			<div *ngIf="formSignUp.get('email').errors.required">
+			<div *ngIf="formSignUp.get('email').hasError('required')">
 				<strong>Danger!</strong> Your Email Address is Required!
 			</div>
-			<div *ngIf="formSignUp.get('email').errors.email">
+			<div *ngIf="formSignUp.get('email').hasError('email')">
 				<strong>Danger!</strong> Please Enter a Proper Email Address!
 			</div>
 		</div>
@@ -45,7 +45,7 @@
 		>
 	</div>
 	<div *ngIf="formSignUp.get('password').invalid && formSignUp.get('password').touched">
-		<div class="alert alert-danger" *ngIf="formSignUp.get('password').errors.required">
+		<div class="alert alert-danger" *ngIf="formSignUp.get('password').hasError('required')">
 			<strong>Danger!</strong> Your Password is Required!
 		</div>
 	</div>
@@ -71,16 +71,10 @@
 		</div>
 	</div>
 	
-	<!--<div *ngIf="formSignUp.get('cnf_password').invalid && formSignUp.get('cnf_password').touched">-->
-		<!--<div class="alert alert-danger" *ngIf="formSignUp.get('cnf_password').errors.required">-->
-			<!--<strong>Danger!</strong> Confirming Password is Required!-->
-		<!--</div>-->
-	<!--</div>-->
-	
 	<!--<div class="checkbox">-->
 	<!--<label><input type="checkbox"> Remember Me</label>-->
 	<!--</div>-->
 	
-	<button class="btn btn-primary" [disabled]="false">SIGN UP</button>
+	<button class="btn btn-primary" [disabled]="formSignUp.invalid">SIGN UP</button>
 	<button type="reset" class="btn btn-default" (click)="onReset()">RESET</button>
 </form>
