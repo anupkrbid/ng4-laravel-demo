@@ -1,9 +1,9 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/do';
 
-// import { AuthService } from './auth.service';
+import { AuthService } from './auth.service';
 
 export class AuthInterceptor implements HttpInterceptor {
 

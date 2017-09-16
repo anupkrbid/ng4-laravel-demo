@@ -24,11 +24,13 @@
 		>
 	</div>
 	<div *ngIf="formSignUp.get('email').invalid && formSignUp.get('email').touched">
-		<div class="alert alert-danger" *ngIf="formSignUp.get('email').errors.required">
-			<strong>Danger!</strong> Your Email Address is Required!
-		</div>
-		<div class="alert alert-danger" *ngIf="formSignUp.get('email').errors.email">
-			<strong>Danger!</strong> Please Enter a Proper Email Address!
+		<div class="alert alert-danger" >
+			<div *ngIf="formSignUp.get('email').errors.required">
+				<strong>Danger!</strong> Your Email Address is Required!
+			</div>
+			<div *ngIf="formSignUp.get('email').errors.email">
+				<strong>Danger!</strong> Please Enter a Proper Email Address!
+			</div>
 		</div>
 	</div>
 	
@@ -59,10 +61,21 @@
 		>
 	</div>
 	<div *ngIf="formSignUp.get('cnf_password').invalid && formSignUp.get('cnf_password').touched">
-		<div class="alert alert-danger" *ngIf="formSignUp.get('cnf_password').errors.required">
-			<strong>Danger!</strong> Confirming Password is Required!
+		<div class="alert alert-danger" >
+			<div *ngIf="formSignUp.get('cnf_password').hasError('required')">
+				<strong>Danger!</strong> Confirm password is Required!
+			</div>
+			<div *ngIf="formSignUp.get('cnf_password').hasError('confirmPassword')">
+				<strong>Danger!</strong> Confirm Password did not Match!
+			</div>
 		</div>
 	</div>
+	
+	<!--<div *ngIf="formSignUp.get('cnf_password').invalid && formSignUp.get('cnf_password').touched">-->
+		<!--<div class="alert alert-danger" *ngIf="formSignUp.get('cnf_password').errors.required">-->
+			<!--<strong>Danger!</strong> Confirming Password is Required!-->
+		<!--</div>-->
+	<!--</div>-->
 	
 	<!--<div class="checkbox">-->
 	<!--<label><input type="checkbox"> Remember Me</label>-->
