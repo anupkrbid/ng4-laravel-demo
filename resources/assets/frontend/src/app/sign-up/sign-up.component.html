@@ -1,4 +1,7 @@
+<!-- Sign Up Form -->
 <form  [formGroup]="formSignUp" (ngSubmit)="onSignUp()">
+	
+	<!-- Name -->
 	<div class="form-group">
 		<label for="name">Name:</label>
 		<input
@@ -14,6 +17,7 @@
 		</div>
 	</div>
 	
+	<!-- Email -->
 	<div class="form-group">
 		<label for="email">Email Address:</label>
 		<input
@@ -34,6 +38,7 @@
 		</div>
 	</div>
 	
+	<!-- Password -->
 	<div class="form-group">
 		<label for="pwd">Password:</label>
 		<input
@@ -50,6 +55,7 @@
 		</div>
 	</div>
 	
+	<!-- Confirm Password -->
 	<div class="form-group">
 		<label for="cnf_pwd">Confirm Password:</label>
 		<input
@@ -75,6 +81,7 @@
 	<!--<label><input type="checkbox"> Remember Me</label>-->
 	<!--</div>-->
 	
+	<!-- Submit & Reset Buttons -->
 	<button class="btn btn-primary" [disabled]="formSignUp.invalid">SIGN UP</button>
 	<button type="reset" class="btn btn-default" (click)="onReset()">RESET</button>
 </form>

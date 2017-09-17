@@ -1,3 +1,6 @@
+/**
+ * Interceptor to intercept all response that arrive and check for error response and take specific actions depending upon status codes
+ */
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';

@@ -9,13 +9,13 @@ import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
 import { HeaderComponent } from './header/header.component';
+import { NewQuoteComponent } from './new-quote/new-quote.component';
+import { NotAuthGuard } from './not-auth.guard';
+import { QuoteComponent } from './quote/quote.component';
+import { QuotesComponent } from './quotes/quotes.component';
+import { QuoteService } from './quote.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { QuotesComponent } from './quotes/quotes.component';
-import { QuoteComponent } from './quote/quote.component';
-import { NewQuoteComponent } from './new-quote/new-quote.component';
-import { QuoteService } from './quote.service';
-import { NotAuthGuard } from './not-auth.guard';
 
 @NgModule( {
 	declarations : [
@@ -43,5 +43,4 @@ import { NotAuthGuard } from './not-auth.guard';
 	],
 	bootstrap : [ AppComponent ]
 } )
-export class AppModule {
-}
+export class AppModule { }

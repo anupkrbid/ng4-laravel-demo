@@ -1,33 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
+/**
+ * Component to display, edit and delete each quote
+ */
+import { Component, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { AuthService } from '../auth.service';
 import { QuoteModel } from '../quote.model';
 import { QuoteService } from '../quote.service';
-import { AuthService } from '../auth.service';
 
 @Component( {
 	selector: 'app-quote',
 	templateUrl: './quote.component.html',
 	styleUrls: [ './quote.component.css' ]
 } )
-export class QuoteComponent implements OnInit {
+export class QuoteComponent {
 
-	editMode = false;
-	editedValue = '';
+	/** Variable declarations */
+	editMode: boolean = false;
+	editedValue: string = '';
 
+	/** Listening for values from parent component */
 	@Input() quote: QuoteModel;
 
+	/** Service injection */
 	constructor( private authService: AuthService,
 	             private quoteService: QuoteService ) { }
 
-	ngOnInit() { }
+  /** Function call to start editing a quote */
+	onEdit() { this.editMode = true; }
 
-	onEdit() {
-
-		this.editMode = true;
-
-	}
-
+	/** Function call to cancel editing a quote */
 	onCancel() {
 
 		this.editMode = false;
@@ -35,13 +37,16 @@ export class QuoteComponent implements OnInit {
 
 	}
 
+	/** Function call to submit the new edited value for a quote */
 	onSave() {
 
+		/** Service call to get token */
 		const token = this.authService.getToken();
 		const obj = {
 			content: this.editedValue
 		};
 
+		/** Service call to edit quote */
 		this.quoteService.editQuote( this.quote.id, obj, token )
 			.subscribe(
 				( res: { success: boolean, message: string } ) => {
@@ -57,9 +62,13 @@ export class QuoteComponent implements OnInit {
 
 	}
 
+	/** Function call to delete a quote */
 	onDelete() {
 
+		/** Service call to get token */
 		const token = this.authService.getToken();
+
+		/** Service call to delete a quote */
 		this.quoteService.deleteQuote( this.quote.id, token )
 			.subscribe(
 				( response: { success: boolean, message: string } ) => {

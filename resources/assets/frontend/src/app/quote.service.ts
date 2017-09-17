@@ -1,8 +1,10 @@
+/**
+ * Service that will handel all ( CRUD ) related quotes api calls
+ */
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/Rx';
 
 import { environment } from '../environments/environment';
 import { QuoteModel } from './quote.model';
@@ -10,10 +12,13 @@ import { QuoteModel } from './quote.model';
 @Injectable()
 export class QuoteService {
 
+	/** Initializing custom observables */
 	quotesNeedToUpdate = new Subject();
 
+	/** Service injection */
 	constructor( private httpClient: HttpClient ) { }
 
+	/** Api call to get all quotes */
 	getQuotes(): Observable<any> {
 
 		const apiUrl = environment.BASE_URL + 'get-quotes';
@@ -22,6 +27,7 @@ export class QuoteService {
 
 	}
 
+	/** Api call to add a new quote */
 	addQuote( data: { content: string }, token: string ): Observable<any> {
 
 		const apiUrl = environment.BASE_URL + 'add-quote';
@@ -34,6 +40,7 @@ export class QuoteService {
 
 	}
 
+	/** Api call to edit an existing quote */
 	editQuote( id: number, data: { content: string }, token: string ): Observable<any> {
 
 		const apiUrl = environment.BASE_URL + 'edit-quote/' + id;
@@ -46,6 +53,7 @@ export class QuoteService {
 
 	}
 
+	/** Api call to delete an existing quote */
 	deleteQuote( id: number, token: string ): Observable<any> {
 
 		const apiUrl = environment.BASE_URL + 'delete-quote/' + id;

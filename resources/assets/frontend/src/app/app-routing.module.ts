@@ -1,3 +1,6 @@
+/**
+ * Module to register all routes for this app
+ */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 

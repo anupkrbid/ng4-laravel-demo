@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+/**
+ * Component to login an existing user
+ */
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Response } from '@angular/http';
 import { Router } from '@angular/router';
@@ -10,12 +13,13 @@ import { AuthService } from '../auth.service';
 	templateUrl: './sign-in.component.html',
 	styleUrls: [ './sign-in.component.css' ]
 } )
-export class SignInComponent implements OnInit {
+export class SignInComponent {
 
-	constructor( private authService: AuthService, private router: Router ) { }
+	/** Service injection */
+	constructor( private authService: AuthService,
+	             private router: Router ) { }
 
-	ngOnInit() { }
-
+	/** Function call to submit sign in form */
 	onSignIn( formSignIn: NgForm ) {
 
 		const body = {
@@ -23,6 +27,7 @@ export class SignInComponent implements OnInit {
 			password: formSignIn.value.password
 		};
 
+		/** Service call to sign in an existing user */
 		this.authService.signin( body )
 			.subscribe(
 				( response: { success: boolean, message: string, token: string } ) => {
@@ -38,10 +43,7 @@ export class SignInComponent implements OnInit {
 
 	}
 
-	onReset( formSignIn: NgForm ) {
-
-		formSignIn.reset();
-
-	}
+	/** Function call to reset sign in form */
+	onReset( formSignIn: NgForm ) {	formSignIn.reset(); }
 
 }

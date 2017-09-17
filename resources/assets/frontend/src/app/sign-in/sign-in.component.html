@@ -1,4 +1,7 @@
+<!-- Sign In Form -->
 <form #form="ngForm" (ngSubmit)="onSignIn(form)">
+	
+	<!-- Email -->
     <div class="form-group">
         <label for="email">Email Address:</label>
         <input
@@ -14,7 +17,9 @@
 	<div class="alert alert-danger" *ngIf="email.invalid && email.touched">
         <strong>Danger!</strong> Please enter a proper email address.
     </div>
-    <div class="form-group">
+	
+	<!-- Password -->
+	<div class="form-group">
         <label for="pwd">Password:</label>
         <input
             id="pwd"
@@ -29,11 +34,12 @@
 	<div class="alert alert-danger" *ngIf="password.invalid && password.touched">
 		<strong>Danger!</strong> Your password is required.
 	</div>
-    <!--<div class="checkbox">-->
+ 
+	<!--<div class="checkbox">-->
     <!--<label><input type="checkbox"> Remember me</label>-->
     <!--</div>-->
-    <button class="btn btn-primary" [disabled]="form.invalid">SIGN IN</button>
-    <button type="reset" class="btn btn-default" (click)="onReset(form)">
-        RESET
-    </button>
+    
+	<!-- Submit & Reset Button -->
+	<button class="btn btn-primary" [disabled]="form.invalid">SIGN IN</button>
+    <button type="reset" class="btn btn-default" (click)="onReset(form)">RESET</button>
 </form>
