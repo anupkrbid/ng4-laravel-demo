@@ -7,11 +7,15 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/do';
 
 import { AuthService } from './auth.service';
+import { Injectable, Injector } from '@angular/core';
 
+@Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-	// constructor( private router: Router,
-	//              private authService: AuthService ) { }
+	private authService: AuthService;
+	constructor( private router: Router, injector:Injector ) {
+		setTimeout(() => this.authService = injector.get(AuthService));
+	}
 
 	intercept( req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
 		return next.handle( req )
@@ -25,13 +29,13 @@ export class AuthInterceptor implements HttpInterceptor {
 					if ( err instanceof HttpErrorResponse ) {
 							console.log(err.status);
 
-						// if ( err.status === 401 ) {
-						//
-						// 	localStorage.removeItem( 'token' );
-						// 	this.authService.loggedIn.next();
-						// 	this.router.navigate( [ '/sign-in' ] );
-						//
-						// }
+						if ( err.status === 401 || err.status === 400 ) {
+
+							localStorage.removeItem( 'token' );
+							this.authService.loggedIn.next();
+							this.router.navigate( [ '/sign-in' ] );
+
+						}
 
 					}
 				}
