@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exceptions\HttpBadRequestException;
 use App\User;
 use Tymon\JWTAuth\Exception\JWTException;
 use JWTAuth;
@@ -79,4 +80,32 @@ class UserController extends Controller
            ], 500);
        }
    }
+
+    public function isEmailExist(Request $request) {
+        try {
+            $email = $request->input('email');
+            $emailExists = User::where('email',$email)->count();
+            if($emailExists > 0){
+                $response = [
+                    'status' => false,
+                    'message' => 'Email already taken.'
+                ];
+                $responseCode = 200;
+            } else {
+                $response = [
+                    'status' => true,
+                    'message' => 'Email is available.'
+                ];
+                $responseCode = 200;
+            }
+
+        } catch (HttpBadRequestException $httpBadRequestException) {
+            $response = [
+                'status'    => false,
+                'error'     => $httpBadRequestException->getMessage()
+            ];
+            $responseCode = 400;
+        }
+        return response()->json($response, $responseCode);
+    }
 }

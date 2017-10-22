@@ -32,6 +32,10 @@ Route::delete('/delete-quote/{id}', [
     'middleware' => 'jwt.auth'
 ]);
 
+Route::post('/is-email-exist', [
+    'uses' => 'UserController@isEmailExist'
+]);
+
 Route::post('/sign-up', [
     'uses' => 'UserController@signup'
 ]);
