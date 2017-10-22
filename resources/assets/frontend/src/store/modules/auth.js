@@ -52,7 +52,6 @@ const actions = {
     Vue.http.post('sign-out?token=' + state.token)
       .then(
         (response) => {
-          console.log(response);
           commit('userSignOut', response.body);
         },
         (error) => {

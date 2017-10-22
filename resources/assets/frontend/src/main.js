@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import store from './store'
 
 import App from './App.vue'
 import router from './router'
+import store from './store'
 
 Vue.use(VueResource)
 Vue.http.options.root = 'http://ng4-laravel.local/api/'
