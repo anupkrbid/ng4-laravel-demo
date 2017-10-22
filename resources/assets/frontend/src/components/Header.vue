@@ -44,7 +44,6 @@
     methods: {
       onSignOut () {
         this.$store.dispatch('userSignOut');
-        console.log('SIGN OUT CLICKED');
       }
       }
   }

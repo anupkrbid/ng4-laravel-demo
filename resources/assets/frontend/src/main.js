@@ -7,6 +7,14 @@ import router from './router'
 
 Vue.use(VueResource)
 Vue.http.options.root = 'http://ng4-laravel.local/api/'
+Vue.http.interceptors.push((request, next) => {
+  next(response => {
+    if(response.status === 401 || response.status === 400) {
+      localStorage.removeItem( 'token' );
+      this.$store.commit('checkUserAuthentication');
+    }
+  });
+});
 
 new Vue({
   el: '#app',
