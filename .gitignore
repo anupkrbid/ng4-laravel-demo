@@ -57,3 +57,17 @@ yarn-error.log
 # System Files
 /resources/assets/frontend.DS_Store
 /resources/assets/frontendThumbs.db
+
+
+.DS_Store
+/resources/assets/node_modules/
+/resources/assets/dist/
+/resources/assets/npm-debug.log
+/resources/assets/yarn-error.log
+
+# Editor directories and files
+/resources/assets/.idea
+/resources/assets/*.suo
+/resources/assets/*.ntvs*
+/resources/assets/*.njsproj
+/resources/assets/*.sln
