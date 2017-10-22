@@ -11,6 +11,9 @@
 
 <script>
   export default {
+    created () {
+      this.$store.commit('checkUserAuthentication');
+    },
     computed: {
       routes () {
         if(this.isLoggedIn){
@@ -25,13 +28,30 @@
         ];
       },
       isLoggedIn () {
-        return false;
+        return this.$store.getters.isAuthenticated;
+      }
+    },
+    watch: {
+      isLoggedIn (value) {
+        if(value){
+          this.$router.push('/quotes');
+        } else {
+
+          this.$router.push('/login');
+        }
       }
     },
     methods: {
       onSignOut () {
+        this.$store.dispatch('userSignOut');
         console.log('SIGN OUT CLICKED');
       }
-    }
+      }
   }
 </script>
+
+<style scoped>
+  a {
+    cursor: pointer;
+  }
+</style>

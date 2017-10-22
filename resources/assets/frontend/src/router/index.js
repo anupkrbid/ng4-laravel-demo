@@ -11,9 +11,11 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    { path: '/', redirect: '/sign-in' },
     { path: '/sign-in', name: 'SignIn', component: SignIn },
     { path: '/sign-up', name: 'SignUp', component: SignUp },
     { path: '/quotes', name: 'Quotes', component: Quotes },
-    { path: '/new-quote', name: 'NewQuote', component: NewQuote }
+    { path: '/new-quote', name: 'NewQuote', component: NewQuote },
+    { path: '*', redirect: '/sign-in' },
   ]
 })

@@ -46,7 +46,7 @@
     },
     methods: {
       onSignIn () {
-        console.log('User Sign In Details : ', this.user);
+        this.$store.dispatch('userSignIn', this.user);
       },
       onReset () {
         this.user.email = '';
