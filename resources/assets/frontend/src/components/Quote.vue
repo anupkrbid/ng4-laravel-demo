@@ -31,8 +31,15 @@
     },
     methods: {
       onSave () {
-        console.log('ON SAVE CLICKED - NEW CONTENT : ', this.quote);
-        this.quote.content = this.editedValue;
+        console.log('ON SAVE CLICKED - NEW CONTENT ');
+        const payload = {
+          data: {
+            content: this.editedValue
+          },
+          id: this.quote.id
+        };
+        this.$store.dispatch('editQuote', payload);
+        this.editedValue = '';
         this.editMode = false;
       },
       onCancel () {
@@ -45,7 +52,10 @@
         console.log('ON EDIT CLICKED');
       },
       onDelete () {
-        console.log('ON DELETE CLICKED');
+        const payload = {
+          id: this.quote.id
+        };
+        this.$store.dispatch('deleteQuote', payload);
         this.editMode = false;
       }
     }

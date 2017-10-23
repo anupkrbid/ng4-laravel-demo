@@ -29,11 +29,15 @@ const actions = {
         }
       );
   },
-  addQuote: ({commit}, payload) => {
-    Vue.http.post('add-quote?token=' + Vue.$store.getters.token, payload)
+  addQuote: ({commit, rootState}, payload) => {
+    console.log(rootState);
+    Vue.http.post('add-quote?token=' + rootState.auth.token, payload)
       .then(
         (response) => {
-          console.log('ADD QUOTE : ', response);
+          console.log(response);
+          if(response.body.success) {
+            alert('added');
+          }
           Vue.$store.dispatch('getQuotes');
         },
         (error) => {
@@ -41,20 +45,20 @@ const actions = {
         }
       );
   },
-  editQuote: ({commit}, payload) => {
-    Vue.http.post('edit-quote/' + payload.id + '?token=' + Vue.$store.getters.token, payload)
+  editQuote: ({commit, rootState}, payload) => {
+    Vue.http.put('edit-quote/' + payload.id + '?token=' + rootState.auth.token, payload.data)
       .then(
         (response) => {
           console.log('EDIT QUOTES : ', response);
-          Vue.$store.dispatch('getQuotes');
+          actions.getQuotes();
         },
         (error) => {
           console.log(error);
         }
       );
   },
-  deleteQuote: ({commit}, payload) => {
-    Vue.http.post('delete-quote/' + payload.id + '?token=' + Vue.$store.getters.token, payload)
+  deleteQuote: ({commit, rootState}, payload) => {
+    Vue.http.delete('delete-quote/' + payload.id + '?token=' + rootState.auth.token, payload)
       .then(
         (response) => {
           console.log('DELETE QUOTE : ', response);

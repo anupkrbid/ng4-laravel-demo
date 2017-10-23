@@ -9,7 +9,7 @@
             <input id="content"
                    type="text"
                    name="content"
-                   v-model="context"
+                   v-model="content"
             >
             <button class="btn btn-primary btn-sm" type="submit">Save</button>
             <button class="btn btn-default btn-sm" type="reset" @click="onCancel">Cancel</button>
@@ -24,7 +24,7 @@
   export default {
     data () {
       return {
-        context: ''
+        content: ''
       }
     },
     methods: {
@@ -33,7 +33,7 @@
         console.log('ON FETCH QUOTES CLICKED');
       },
       onSubmit () {
-        console.log('FORM SUBMITTED', this.context);
+        this.$store.dispatch('addQuote', { content: this.content });
       }
     }
   }
