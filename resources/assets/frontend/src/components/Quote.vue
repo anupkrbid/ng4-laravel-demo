@@ -43,13 +43,11 @@
         this.editMode = false;
       },
       onCancel () {
-        console.log('ON CANCEL CLICKED');
         this.editedValue = '';
         this.editMode = false;
       },
       onEdit () {
         this.editMode = true;
-        console.log('ON EDIT CLICKED');
       },
       onDelete () {
         const payload = {

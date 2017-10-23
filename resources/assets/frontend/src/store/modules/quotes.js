@@ -21,7 +21,6 @@ const actions = {
     Vue.http.get('get-quotes')
       .then(
         (response) => {
-          console.log('GET QUOTES : ', response);
           commit('refreshQuotes', response.body);
         },
         (error) => {
@@ -29,19 +28,20 @@ const actions = {
         }
       );
   },
-  addQuote: ({commit, rootState}, payload) => {
+  addQuote: ({ commit, rootState}, payload) => {
     console.log(rootState);
     Vue.http.post('add-quote?token=' + rootState.auth.token, payload)
       .then(
         (response) => {
-          console.log(response);
           if(response.body.success) {
-            alert('added');
+            actions.getQuotes({commit});
+            alert(response.body.message);
+          } else {
+            console.error(response);
           }
-          Vue.$store.dispatch('getQuotes');
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   },
@@ -49,11 +49,14 @@ const actions = {
     Vue.http.put('edit-quote/' + payload.id + '?token=' + rootState.auth.token, payload.data)
       .then(
         (response) => {
-          console.log('EDIT QUOTES : ', response);
-          actions.getQuotes();
+          if(response.body.success) {
+            actions.getQuotes({commit})
+          } else {
+            console.error(response);
+          }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   },
@@ -61,14 +64,17 @@ const actions = {
     Vue.http.delete('delete-quote/' + payload.id + '?token=' + rootState.auth.token, payload)
       .then(
         (response) => {
-          console.log('DELETE QUOTE : ', response);
-          Vue.$store.dispatch('getQuotes');
+          if(response.body.success) {
+            actions.getQuotes({commit})
+          } else {
+            console.error(response);
+          }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   },
 }
 
-export default { state, getters, mutations, actions }
+export default { state, getters, mutations, actions };
