@@ -22,13 +22,11 @@
 
 <script>
   export default {
+    props: ['quote'],
     data () {
       return {
         editMode: false,
-        editedValue: '',
-        quote: {
-          content: 'Some Content!'
-        }
+        editedValue: ''
       }
     },
     methods: {

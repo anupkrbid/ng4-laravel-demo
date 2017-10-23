@@ -2,7 +2,7 @@
   <div>
     <button class="btn btn-primary" @click="onFetchQuotes">Fetch Quotes</button>
     <hr/>
-    <app-quote></app-quote>
+    <app-quote :quote="quote" v-for="quote in quotes" :key="quote.id"></app-quote>
   </div>
 </template>
 
@@ -13,9 +13,15 @@
     components: {
       appQuote: Quote
     },
+    computed : {
+      quotes () {
+        return this.$store.getters.getQuotes;
+      }
+    },
     methods: {
       onFetchQuotes () {
         console.log('ON FETCH QUOTES CLICKED');
+        this.$store.dispatch('getQuotes');
       }
     }
   }
