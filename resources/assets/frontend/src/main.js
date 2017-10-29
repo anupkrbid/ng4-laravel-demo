@@ -8,9 +8,14 @@ import store from './store'
 Vue.use(VueResource)
 Vue.http.options.root = 'http://ng4-laravel.local/api/'
 Vue.http.interceptors.push((request, next) => {
+  if(store.getters.isAuthenticated){
+    console.log('Authenticated');
+  } else {
+    console.log('Not Authenticated');
+  }
   next(response => {
     if(response.status === 401 || response.status === 400) {
-      localStorage.removeItem( 'token' );
+      localStorage.removeItem('token');
       this.$store.commit('checkUserAuthentication');
     }
   });
