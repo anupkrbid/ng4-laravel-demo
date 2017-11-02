@@ -2,62 +2,36 @@
  * Component to show header section and handel navigation
  */
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from '../auth.service';
-import { Subscription } from 'rxjs/Subscription';
+import * as fromApp from '../store/app.reducers';
+import * as fromAuth from '../store/auth/auth.reducers';
+import * as AuthActions from '../store/auth/auth.actions';
 
-@Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
-})
-export class HeaderComponent implements OnInit, OnDestroy {
+@Component( {
+	selector: 'app-header',
+	templateUrl: './header.component.html',
+	styleUrls: [ './header.component.css' ]
+} )
+export class HeaderComponent implements OnInit {
 
 	/** Variable declarations */
-  isLoggedIn: boolean;
-  loggedInSubscription: Subscription;
+	authState: Observable<fromAuth.State>;
 
 	/** Service injection */
-  constructor( private authService: AuthService,
-               private router: Router ) { }
+	constructor( private store: Store<fromApp.AppState> ) { }
 
 	/** Perform task when component initializes */
-  ngOnInit() {
-
+	ngOnInit() {
 		/** Service call to check if user is authenticated or not */
-    this.isLoggedIn = this.authService.isAuthenticated();
-    this.loggedInSubscription = this.authService.loggedIn.subscribe(
-      () => {
-        this.isLoggedIn = this.authService.isAuthenticated();
-      }
-    );
-
-  }
+		this.authState = this.store.select( 'auth' );
+		this.store.dispatch( new AuthActions.CheckToken() );
+	}
 
 	/** Function call to sign out */
-  onSignOut() {
-
-    const token = this.authService.getToken();
-
-		/** Service call to sign out */
-    this.authService.signout(token)
-	    .subscribe(
-      (res: any) => {
-        console.log(res.message);
-        localStorage.removeItem('token');
-      },
-      (err: HttpErrorResponse) => console.log(err),
-      () => {
-        this.authService.loggedIn.next();
-        this.router.navigate(['/sign-in']);
-      }
-    );
-
-  }
-
-	/** Un-subscribing from custom subscription to prevent memory leak when the component will get destroyed */
-	ngOnDestroy() { this.loggedInSubscription.unsubscribe(); }
+	onSignOut() {
+		this.store.dispatch( new AuthActions.SignOutAttempt() );
+	}
 
 }

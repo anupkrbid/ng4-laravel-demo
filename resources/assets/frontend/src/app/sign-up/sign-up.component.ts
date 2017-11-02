@@ -3,9 +3,10 @@
  */
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from "@ngrx/store";
 
-import { AuthService } from '../auth.service';
+import * as fromApp from '../store/app.reducers';
+import * as AuthActions from '../store/auth/auth.actions';
 
 @Component( {
 	selector: 'app-sign-up',
@@ -18,8 +19,8 @@ export class SignUpComponent implements OnInit {
 	formSignUp: FormGroup;
 
 	/** Service injection */
-	constructor( private authService: AuthService,
-	             private formBuilder: FormBuilder ) { }
+	constructor(private store: Store<fromApp.AppState>,
+	            private formBuilder: FormBuilder ) { }
 
 	/** Perform task when component initializes */
 	ngOnInit() {
@@ -65,22 +66,13 @@ export class SignUpComponent implements OnInit {
 
 	/** Function call to submit sign up form */
 	onSignUp() {
-
 		const body = this.formSignUp.value;
-
-		/** Service call to sign up a new user */
-		this.authService.signup( body )
-			.subscribe(
-				( res: { success: boolean, message: string } ) => {
-					alert( res.message );
-				},
-				( err: HttpErrorResponse ) => console.log( err ),
-				() => this.formSignUp.reset()
-			);
-
+		this.store.dispatch(new AuthActions.SignUpAttempt(body));
 	}
 
 	/** Function call to reset sign up form */
-	onReset() {	this.formSignUp.reset(); }
+	onReset() {
+		this.formSignUp.reset();
+	}
 
 }

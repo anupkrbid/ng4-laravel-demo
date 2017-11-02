@@ -3,10 +3,10 @@
  */
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Response } from '@angular/http';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from '../auth.service';
+import * as fromApp from '../store/app.reducers';
+import * as AuthActions from '../store/auth/auth.actions';
 
 @Component( {
 	selector: 'app-sign-in',
@@ -16,34 +16,20 @@ import { AuthService } from '../auth.service';
 export class SignInComponent {
 
 	/** Service injection */
-	constructor( private authService: AuthService,
-	             private router: Router ) { }
+	constructor( private store: Store<fromApp.AppState> ) {}
 
 	/** Function call to submit sign in form */
 	onSignIn( formSignIn: NgForm ) {
-
 		const body = {
 			email: formSignIn.value.email,
 			password: formSignIn.value.password
 		};
-
-		/** Service call to sign in an existing user */
-		this.authService.signin( body )
-			.subscribe(
-				( response: { success: boolean, message: string, token: string } ) => {
-					localStorage.setItem( 'token', response.token );
-				},
-				( error: Response ) => console.log( error ),
-				() => {
-					this.authService.loggedIn.next();
-					formSignIn.reset();
-					this.router.navigate( [ '/quotes' ] );
-				}
-			);
-
+		this.store.dispatch( new AuthActions.SignInAttempt( body ) );
 	}
 
 	/** Function call to reset sign in form */
-	onReset( formSignIn: NgForm ) {	formSignIn.reset(); }
+	onReset( formSignIn: NgForm ) {
+		formSignIn.reset();
+	}
 
 }

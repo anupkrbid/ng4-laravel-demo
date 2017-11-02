@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 import { Injectable, Injector } from '@angular/core';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class AuthInterceptorPrev implements HttpInterceptor {
 
 	private authService: AuthService;
 	constructor( private router: Router, injector:Injector ) {
@@ -18,6 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 	}
 
 	intercept( req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
+		console.log('AuthInterceptorPrev');
 		return next.handle( req )
 			.do(
 				( event: HttpEvent<any> ) => {
