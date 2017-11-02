@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from "@ngrx/store";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,7 @@ import { QuotesComponent } from './quotes/quotes.component';
 import { QuoteService } from './quote.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { reducers} from "./store/app.reducers";
 
 @NgModule( {
 	declarations : [
@@ -32,7 +34,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
-		AppRoutingModule
+		AppRoutingModule,
+        StoreModule.forRoot(reducers),
 	],
 	providers : [
 		QuoteService,
