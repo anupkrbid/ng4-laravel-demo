@@ -7,5 +7,6 @@
         <router-outlet></router-outlet>
       </div>
     </div>
+	<app-alert *ngIf="(alertState | async).show" [text]="(alertState | async).message" [type]="(alertState | async).type"></app-alert>
   </div>
 </div>

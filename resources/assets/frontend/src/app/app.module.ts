@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
+import { AlertComponent } from './alert/alert.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthEffects } from './store/auth/auth.effects';
@@ -31,7 +32,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 		SignUpComponent,
 		QuotesComponent,
 		QuoteComponent,
-		NewQuoteComponent
+		NewQuoteComponent,
+		AlertComponent
 	],
 	imports: [
 		BrowserModule,

@@ -1,5 +1,5 @@
 import { Actions, Effect } from '@ngrx/effects';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs/observable/of';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
 
 import * as fromApp from '../app.reducers';
+import * as AlertActions from '../alert/alert.actions';
 import * as AuthActions from './auth.actions';
 import { environment } from '../../../environments/environment';
 
@@ -35,15 +36,17 @@ export class AuthEffects {
 		.map( ( res: any ) => {
 			if ( res.success ) {
 				return {
-					type: AuthActions.SIGNUP_SUCCESS
+					type: AlertActions.ALERT_SHOW,
+					payload: { message: res.message, type: 'success' }
 				};
 			} else {
 				return {
-					type: AuthActions.SIGNUP_FAILED
+					type: AlertActions.ALERT_SHOW,
+					payload: { message: res.message, type: 'danger' }
 				};
 			}
 		} )
-		.catch( () => of( { type: AuthActions.SIGNUP_FAILED } ) );
+		.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error.email ? err.error.email[0] : '', type: 'danger' } } ) );
 
 	@Effect()
 	authSignIn = this.actions$
@@ -57,7 +60,6 @@ export class AuthEffects {
 			return this.httpClient.post( apiUrl, action.payload, config );
 		} )
 		.map( ( res: any ) => {
-			console.log( 'in map' );
 			if ( res.success ) {
 				this.router.navigate( [ '/quotes' ] );
 				return {
@@ -66,11 +68,12 @@ export class AuthEffects {
 				};
 			} else {
 				return {
-					type: AuthActions.SIGNIN_FAILED
+					type: AlertActions.ALERT_SHOW,
+					payload: { message: res.message, type: 'danger' }
 				};
 			}
 		} )
-		.catch( () => of( { type: AuthActions.SIGNIN_FAILED } ) );
+		.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error.message, type: 'danger' } } ) );
 
 	@Effect()
 	authSignOut = this.actions$
@@ -94,11 +97,12 @@ export class AuthEffects {
 				};
 			} else {
 				return {
-					type: AuthActions.SIGNOUT_FAILED
+					type: AlertActions.ALERT_SHOW,
+					payload: { message: res.message, type: 'danger' }
 				};
 			}
 		} )
-		.catch( () => of( { type: AuthActions.SIGNOUT_FAILED } ) );
+		.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error, type: 'danger'} } ) );
 
 }
 
