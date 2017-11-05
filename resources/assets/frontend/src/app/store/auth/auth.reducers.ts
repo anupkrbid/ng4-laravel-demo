@@ -2,16 +2,23 @@ import * as AuthActions from './auth.actions';
 
 export interface State {
 	token: string;
+	registered: boolean,
 	isAuthenticated: boolean;
 }
 
 const initialState: State = {
 	token: null,
+	registered: false,
 	isAuthenticated: false
 };
 
 export function authReducer( state = initialState, action: AuthActions.AuthActions ) {
 	switch ( action.type ) {
+		case (AuthActions.SIGNUP_SUCCESS):
+			return {
+				...state,
+				registered: action.payload
+			};
 		case (AuthActions.SIGNIN_SUCCESS):
 			localStorage.setItem( 'token', action.payload );
 			return {
@@ -36,8 +43,6 @@ export function authReducer( state = initialState, action: AuthActions.AuthActio
 			} else {
 				return state;
 			}
-
-		case (AuthActions.SIGNUP_SUCCESS):
 		default:
 			return state;
 	}

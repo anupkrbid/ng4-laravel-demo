@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
 
@@ -33,18 +34,24 @@ export class AuthEffects {
 			};
 			return this.httpClient.post( apiUrl, action.payload, config );
 		} )
-		.map( ( res: any ) => {
-			if ( res.success ) {
-				return {
-					type: AlertActions.ALERT_SHOW,
-					payload: { message: res.message, type: 'success' }
-				};
-			} else {
-				return {
-					type: AlertActions.ALERT_SHOW,
-					payload: { message: res.message, type: 'danger' }
-				};
-			}
+		.mergeMap( ( res: any ) => {
+			//if ( res.success ) {
+				return [
+					{
+						type: AlertActions.ALERT_SHOW,
+						payload: { message: res.message, type: 'success' }
+					},
+					{
+						type: AuthActions.SIGNUP_SUCCESS,
+						payload: true
+					}
+				];
+			// } else {
+			// 	return {
+			// 		type: AlertActions.ALERT_SHOW,
+			// 		payload: { message: res.message, type: 'danger' }
+			// 	};
+			// }
 		} )
 		.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error.email ? err.error.email[0] : '', type: 'danger' } } ) );
 
