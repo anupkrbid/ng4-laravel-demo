@@ -5,8 +5,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as fromApp from '../store/app.reducers';
-import * as AuthActions from '../store/auth/auth.actions';
+import * as fromApp from '../../store/core.reducers';
+import * as AuthActions from '../../store/auth/auth.actions';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/take';
 

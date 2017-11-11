@@ -4,7 +4,7 @@
 import { Component, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../../../auth/auth.service';
 import { QuoteModel } from '../quote.model';
 import { QuoteService } from '../quote.service';
 

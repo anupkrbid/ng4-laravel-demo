@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {

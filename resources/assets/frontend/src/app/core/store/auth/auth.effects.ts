@@ -10,10 +10,10 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
 
-import * as fromApp from '../app.reducers';
+import * as fromApp from '../core.reducers';
 import * as AlertActions from '../alert/alert.actions';
 import * as AuthActions from './auth.actions';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class AuthEffects {

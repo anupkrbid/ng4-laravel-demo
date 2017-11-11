@@ -1,0 +1,12 @@
+<div id="app">
+	<div class="container">
+		<app-header></app-header>
+		<br/>
+		<div class="row">
+			<div class="col-xs-12">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+		<app-alert *ngIf="(alertState | async).show" [text]="(alertState | async).message" [type]="(alertState | async).type"></app-alert>
+	</div>
+</div>

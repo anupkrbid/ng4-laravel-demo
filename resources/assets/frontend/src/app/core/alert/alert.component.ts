@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as fromApp from '../store/app.reducers';
+import * as fromApp from '../store/core.reducers';
 import * as AlertActions from '../store/alert/alert.actions';
 
 @Component({

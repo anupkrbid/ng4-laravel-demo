@@ -5,9 +5,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { QuoteInterface } from '../quote.interface';
-import { QuoteModel } from '../quote.model';
-import { QuoteService } from '../quote.service';
+import { QuoteInterface } from './quote.interface';
+import { QuoteModel } from './quote.model';
+import { QuoteService } from './quote.service';
 
 @Component( {
 	selector: 'app-quotes',

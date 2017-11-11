@@ -5,8 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 
-import { AuthService } from '../auth.service';
-import { QuoteService } from '../quote.service';
+import { AuthService } from '../../../auth/auth.service';
+import { QuoteService } from '../quotes/quote.service';
 
 @Component( {
 	selector: 'app-new-quote',
