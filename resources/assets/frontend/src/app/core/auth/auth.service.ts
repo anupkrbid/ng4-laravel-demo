@@ -20,7 +20,7 @@ export class AuthService {
 	/** Api call to sign up a new user */
 	signup( data: { name: string, email: string, password: string } ): Observable<any> {
 
-		const apiUrl = environment.BASE_URL + 'sign-up';
+		const apiUrl = environment.API_BASE_URL + 'sign-up';
 		const headers = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest');
 		const config = {
 			headers: headers
@@ -33,7 +33,7 @@ export class AuthService {
 	/** Api call to sign in an existing user */
 	signin( data: { email: string, password: string } ): Observable<any> {
 
-		const apiUrl = environment.BASE_URL + 'sign-in';
+		const apiUrl = environment.API_BASE_URL + 'sign-in';
 		const headers = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest');
 		const config = {
 			headers: headers
@@ -46,7 +46,7 @@ export class AuthService {
 	/** Api call to logout a logged in user */
 	signout( token: string ): Observable<any> {
 
-		const apiUrl = environment.BASE_URL + 'sign-out';
+		const apiUrl = environment.API_BASE_URL + 'sign-out';
 		const headers = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest');
 		const params = new HttpParams().set('token', token);
 		const config = {

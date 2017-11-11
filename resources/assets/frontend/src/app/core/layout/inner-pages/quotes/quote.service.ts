@@ -21,7 +21,7 @@ export class QuoteService {
 	/** Api call to get all quotes */
 	getQuotes(): Observable<any> {
 
-		const apiUrl = environment.BASE_URL + 'get-quotes';
+		const apiUrl = environment.API_BASE_URL + 'get-quotes';
 
 		return this.httpClient.get<QuoteModel[]>( apiUrl );
 
@@ -30,7 +30,7 @@ export class QuoteService {
 	/** Api call to add a new quote */
 	addQuote( data: { content: string }, token: string ): Observable<any> {
 
-		const apiUrl = environment.BASE_URL + 'add-quote';
+		const apiUrl = environment.API_BASE_URL + 'add-quote';
 		const params = new HttpParams().set('token', token);
 		const config = {
 			params: params
@@ -43,7 +43,7 @@ export class QuoteService {
 	/** Api call to edit an existing quote */
 	editQuote( id: number, data: { content: string }, token: string ): Observable<any> {
 
-		const apiUrl = environment.BASE_URL + 'edit-quote/' + id;
+		const apiUrl = environment.API_BASE_URL + 'edit-quote/' + id;
 		const params = new HttpParams().set('token', token);
 		const config = {
 			params: params
@@ -56,7 +56,7 @@ export class QuoteService {
 	/** Api call to delete an existing quote */
 	deleteQuote( id: number, token: string ): Observable<any> {
 
-		const apiUrl = environment.BASE_URL + 'delete-quote/' + id;
+		const apiUrl = environment.API_BASE_URL + 'delete-quote/' + id;
 		const params = new HttpParams().set('token', token);
 		const config = {
 			params: params

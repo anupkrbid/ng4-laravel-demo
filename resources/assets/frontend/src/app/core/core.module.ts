@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
@@ -20,6 +20,7 @@ import { NotAuthGuard } from './auth/not-auth.guard';
 	imports: [
 		CommonModule,
 		CoreRoutingModule,
+		HttpClientModule,
 		StoreModule.forRoot( reducers ),
 		EffectsModule.forRoot( [ AuthEffects ] ),
 		!environment.production ? StoreDevtoolsModule.instrument() : []

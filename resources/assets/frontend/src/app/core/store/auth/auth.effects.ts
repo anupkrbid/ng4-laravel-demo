@@ -27,7 +27,7 @@ export class AuthEffects {
 	authSignUp = this.actions$
 		.ofType( AuthActions.SIGNUP_ATTEMPT )
 		.switchMap( ( action: AuthActions.SignUpAttempt ) => {
-			const apiUrl = environment.BASE_URL + 'sign-up';
+			const apiUrl = environment.API_BASE_URL + 'sign-up';
 			const headers = new HttpHeaders().set( 'X-Requested-With', 'XMLHttpRequest' );
 			const config = {
 				headers: headers
@@ -71,7 +71,7 @@ export class AuthEffects {
 	authSignIn = this.actions$
 		.ofType( AuthActions.SIGNIN_ATTEMPT )
 		.switchMap( ( action: AuthActions.SignInAttempt ) => {
-			const apiUrl = environment.BASE_URL + 'sign-in';
+			const apiUrl = environment.API_BASE_URL + 'sign-in';
 			const headers = new HttpHeaders().set( 'X-Requested-With', 'XMLHttpRequest' );
 			const config = {
 				headers: headers
@@ -99,7 +99,7 @@ export class AuthEffects {
 		.ofType( AuthActions.SIGNOUT_ATTEMPT )
 		.withLatestFrom( this.store.select( 'auth' ) )
 		.switchMap( ( [ action, state ] ) => {
-			const apiUrl = environment.BASE_URL + 'sign-out';
+			const apiUrl = environment.API_BASE_URL + 'sign-out';
 			const headers = new HttpHeaders().set( 'X-Requested-With', 'XMLHttpRequest' );
 			const params = new HttpParams().set( 'token', state.token );
 			const config = {
