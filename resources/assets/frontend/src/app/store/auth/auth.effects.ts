@@ -32,28 +32,40 @@ export class AuthEffects {
 			const config = {
 				headers: headers
 			};
-			return this.httpClient.post( apiUrl, action.payload, config );
-		} )
-		.mergeMap( ( res: any ) => {
-			//if ( res.success ) {
-				return [
-					{
-						type: AlertActions.ALERT_SHOW,
-						payload: { message: res.message, type: 'success' }
-					},
-					{
-						type: AuthActions.SIGNUP_SUCCESS,
-						payload: true
+			return this.httpClient.post( apiUrl, action.payload, config )
+				.mergeMap( ( res: any ) => {
+					if ( res.success ) {
+						return [
+							{
+								type: AlertActions.ALERT_SHOW,
+								payload: { message: res.message, type: 'success' }
+							},
+							{
+								type: AuthActions.SIGNUP_SUCCESS,
+								payload: true
+							}
+						]
+					} else {
+						return [
+							{
+								type: AlertActions.ALERT_SHOW,
+								payload: { message: res.message, type: 'danger' }
+							},
+							{
+								type: 'SIGNUP_FAILED'
+							}
+						]
 					}
-				];
-			// } else {
-			// 	return {
-			// 		type: AlertActions.ALERT_SHOW,
-			// 		payload: { message: res.message, type: 'danger' }
-			// 	};
-			// }
+				} )
+				.catch( (err: HttpErrorResponse) => {
+					return of (
+						{
+							type: AlertActions.ALERT_SHOW,
+							payload: { message: err.error.email ? err.error.email[0] : '', type: 'danger' }
+						}
+					)
+				});
 		} )
-		.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error.email ? err.error.email[0] : '', type: 'danger' } } ) );
 
 	@Effect()
 	authSignIn = this.actions$
@@ -64,23 +76,23 @@ export class AuthEffects {
 			const config = {
 				headers: headers
 			};
-			return this.httpClient.post( apiUrl, action.payload, config );
+			return this.httpClient.post( apiUrl, action.payload, config )
+				.map( ( res: any ) => {
+					if ( res.success ) {
+						this.router.navigate( [ '/quotes' ] );
+						return {
+							type: AuthActions.SIGNIN_SUCCESS,
+							payload: res.token
+						};
+					} else {
+						return {
+							type: AlertActions.ALERT_SHOW,
+							payload: { message: res.message, type: 'danger' }
+						};
+					}
+				} )
+				.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error.message, type: 'danger' } } ) );
 		} )
-		.map( ( res: any ) => {
-			if ( res.success ) {
-				this.router.navigate( [ '/quotes' ] );
-				return {
-					type: AuthActions.SIGNIN_SUCCESS,
-					payload: res.token
-				};
-			} else {
-				return {
-					type: AlertActions.ALERT_SHOW,
-					payload: { message: res.message, type: 'danger' }
-				};
-			}
-		} )
-		.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error.message, type: 'danger' } } ) );
 
 	@Effect()
 	authSignOut = this.actions$
@@ -94,22 +106,23 @@ export class AuthEffects {
 				params: params,
 				headers: headers
 			};
-			return this.httpClient.post( apiUrl, '', config );
+			return this.httpClient.post( apiUrl, '', config )
+				.map( ( res: any ) => {
+					if ( res.success ) {
+						this.router.navigate( [ '/' ] );
+						return {
+							type: AuthActions.SIGNOUT_SUCCESS
+						};
+					} else {
+						return {
+							type: AlertActions.ALERT_SHOW,
+							payload: { message: res.message, type: 'danger' }
+						};
+					}
+				} )
+				.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error, type: 'danger'} } ) );
 		} )
-		.map( ( res: any ) => {
-			if ( res.success ) {
-				this.router.navigate( [ '/' ] );
-				return {
-					type: AuthActions.SIGNOUT_SUCCESS
-				};
-			} else {
-				return {
-					type: AlertActions.ALERT_SHOW,
-					payload: { message: res.message, type: 'danger' }
-				};
-			}
-		} )
-		.catch( (err: HttpErrorResponse) => of( { type: AlertActions.ALERT_SHOW, payload: { message: err.error, type: 'danger'} } ) );
+
 
 }
 
