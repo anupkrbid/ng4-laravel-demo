@@ -24,12 +24,13 @@ export class QuoteEffects  {
 		.ofType(QuoteActions.FETCH_QUOTES_ATTEMPT)
 		.switchMap((action: QuoteActions.FetchQuotesAttept) => {
 			const apiUrl = environment.API_BASE_URL + 'get-quotes';
-			return this.httpClient.get<QuoteModel[]>( apiUrl )
+			//return this.httpClient.get<QuoteModel[]>( apiUrl )
+			return this.httpClient.get( apiUrl )
 				.map((res: any) => {
-					if (res.status) {
+					if (res.success) {
 						return {
 							type: QuoteActions.FETCH_QUOTES_SUCCESS,
-							payload: res.body
+							payload: res.data
 						}
 					} else {
 						return {

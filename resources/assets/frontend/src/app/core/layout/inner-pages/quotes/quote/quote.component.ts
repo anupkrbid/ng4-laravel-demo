@@ -23,8 +23,7 @@ export class QuoteComponent {
 	@Input() quote: QuoteModel;
 
 	/** Service injection */
-	constructor( private authService: AuthService,
-	             private quoteService: QuoteService ) { }
+	constructor() { }
 
   /** Function call to start editing a quote */
 	onEdit() { this.editMode = true; }
@@ -41,24 +40,24 @@ export class QuoteComponent {
 	onSave() {
 
 		/** Service call to get token */
-		const token = this.authService.getToken();
-		const obj = {
-			content: this.editedValue
-		};
+		// const token = this.authService.getToken();
+		// const obj = {
+		// 	content: this.editedValue
+		// };
 
 		/** Service call to edit quote */
-		this.quoteService.editQuote( this.quote.id, obj, token )
-			.subscribe(
-				( res: { success: boolean, message: string } ) => {
-					this.quoteService.quotesNeedToUpdate.next();
-					alert( res.message );
-				},
-				( err: HttpErrorResponse ) => console.log( err ),
-				() => {
-					this.editMode = false;
-					this.editedValue = '';
-				}
-			);
+		// this.quoteService.editQuote( this.quote.id, obj, token )
+		// 	.subscribe(
+		// 		( res: { success: boolean, message: string } ) => {
+		// 			this.quoteService.quotesNeedToUpdate.next();
+		// 			alert( res.message );
+		// 		},
+		// 		( err: HttpErrorResponse ) => console.log( err ),
+		// 		() => {
+		// 			this.editMode = false;
+		// 			this.editedValue = '';
+		// 		}
+		// 	);
 
 	}
 
@@ -66,17 +65,17 @@ export class QuoteComponent {
 	onDelete() {
 
 		/** Service call to get token */
-		const token = this.authService.getToken();
+		// const token = this.authService.getToken();
 
 		/** Service call to delete a quote */
-		this.quoteService.deleteQuote( this.quote.id, token )
-			.subscribe(
-				( response: { success: boolean, message: string } ) => {
-					this.quoteService.quotesNeedToUpdate.next();
-					alert( response.message );
-				},
-				( error: HttpErrorResponse ) => console.log( error )
-			);
+		// this.quoteService.deleteQuote( this.quote.id, token )
+		// 	.subscribe(
+		// 		( response: { success: boolean, message: string } ) => {
+		// 			this.quoteService.quotesNeedToUpdate.next();
+		// 			alert( response.message );
+		// 		},
+		// 		( error: HttpErrorResponse ) => console.log( error )
+		// 	);
 
 	}
 

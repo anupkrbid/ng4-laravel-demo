@@ -18,11 +18,11 @@ import { Observable } from 'rxjs/Observable';
 	templateUrl: './quotes.component.html',
 	styleUrls: [ './quotes.component.css' ]
 } )
-export class QuotesComponent implements OnInit, OnDestroy {
+export class QuotesComponent implements OnInit {
 
 	/** Variable declarations */
 //	quotes: QuoteInterface[];
-	quotesNeedToUpdateSubscription: Subscription;
+	quotesNeedToUpdateSubscription: Subscription
 	quotes: Observable<fromQuote.QuoteState>;
 	/** Service injection */
 	constructor(private store: Store<fromQuote.QuoteState>) { }
@@ -30,7 +30,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
 	/** Perform task when component initializes */
 	ngOnInit() {
 
-		quotes = this.store.select('quote');
+		this.quotes = this.store.select('quotes');
 		/** Subscribing to custom observables to update quotes list */
 		// this.quotesNeedToUpdateSubscription = this.quoteService.quotesNeedToUpdate
 		// 	.subscribe(
@@ -52,8 +52,5 @@ export class QuotesComponent implements OnInit, OnDestroy {
 	onFetchQuotes() {
 		this.store.dispatch(new QuoteAction.FetchQuotesAttept());
 	}
-
-	/** Un-subscribing from custom subscription to prevent memory leak when the component will get destroyed */
-	ngOnDestroy() { this.quotesNeedToUpdateSubscription.unsubscribe(); }
 
 }
