@@ -2,7 +2,7 @@ import * as AuthActions from './auth.actions';
 
 export interface State {
 	token: string;
-	registered: boolean,
+	registered: boolean;
 	isAuthenticated: boolean;
 }
 
