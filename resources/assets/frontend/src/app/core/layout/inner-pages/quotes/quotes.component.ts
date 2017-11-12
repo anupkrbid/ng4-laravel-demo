@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import * as fromQuote from '../../store/quotes/quote.reduces';
 import * as QuoteAction from '../../store/quotes/quote.actions';
 import { Observable } from 'rxjs/Observable';
+import * as fromFeature from '../../store/feature.reducers';
 
 @Component( {
 	selector: 'app-quotes',
@@ -22,15 +23,16 @@ export class QuotesComponent implements OnInit {
 
 	/** Variable declarations */
 //	quotes: QuoteInterface[];
-	quotesNeedToUpdateSubscription: Subscription
-	quotes: Observable<fromQuote.QuoteState>;
+//	quotesNeedToUpdateSubscription: Subscription
+	quoteState: Observable<fromQuote.QuoteState>;
 	/** Service injection */
-	constructor(private store: Store<fromQuote.QuoteState>) { }
+	constructor(private store: Store<fromFeature.FeatureState>) { }
 
 	/** Perform task when component initializes */
 	ngOnInit() {
-
-		this.quotes = this.store.select('quotes');
+		console.log(this.store);
+	  this.quoteState = this.store.select('quote');
+		this.store.select('quote').subscribe(data => console.log(data));
 		/** Subscribing to custom observables to update quotes list */
 		// this.quotesNeedToUpdateSubscription = this.quoteService.quotesNeedToUpdate
 		// 	.subscribe(

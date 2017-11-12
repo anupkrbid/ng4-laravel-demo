@@ -1,3 +1,4 @@
 <button class="btn btn-primary" (click)="onFetchQuotes()">Fetch Quotes</button>
 <hr/>
-<app-quote *ngFor="let quote of (quotes | async)" [quote]="quote"></app-quote>
+<app-quote *ngFor="let quote of (quoteState | async)" [quote]="quote"></app-quote>
+{{ quoteState | async }}

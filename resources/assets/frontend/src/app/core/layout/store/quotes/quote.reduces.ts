@@ -14,7 +14,7 @@ export function quoteReducer(state = initialState, action: QuoteActions.QuoteAct
 		case (QuoteActions.FETCH_QUOTES_SUCCESS):
 			return {
 				...state,
-				quotes: action.payload
+				quotes: [...action.payload]
 			};
 		default:
 			return state;
